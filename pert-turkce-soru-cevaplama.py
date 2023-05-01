@@ -34,8 +34,9 @@ def get_answer(question, text):
 
     # Highlight answer in text
     highlighted_text = text.replace(
-        answer, f"<mark style='background-color: green'>{answer}</mark>"
+        answer, f"<mark style='background-color: #b5e48c'>{answer}</mark>"
     )
+    
     print(answer)
     # highlighted_text = text
     del model
@@ -65,4 +66,4 @@ if st.button("Cevap Al"):
     else:
         answer, highlighted_text = get_answer(question, text)
         st.markdown(f'Cevap: "{answer}"', unsafe_allow_html=True)
-        st.markdown(highlighted_text, unsafe_allow_html=True)
+        st.markdown(f"Cevap verilen metnin içinde:\n{highlighted_text}", unsafe_allow_html=True)
