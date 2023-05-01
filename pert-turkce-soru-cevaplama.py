@@ -10,9 +10,7 @@ def get_answer(question, text):
     name_of_repo = "lserinol/bert-turkish-question-answering"
     tokenizer = AutoTokenizer.from_pretrained(name_of_repo)
 
-    model = AutoModelForQuestionAnswering.from_pretrained(
-        name_of_repo
-    )
+    model = AutoModelForQuestionAnswering.from_pretrained(name_of_repo)
 
     # Tokenize inputs
     inputs = tokenizer.encode_plus(
@@ -48,7 +46,7 @@ def get_answer(question, text):
     del start_index
     del end_index
 
-    return highlighted_text
+    return (answer, highlighted_text)
 
 
 logo = Image.open("ytu.png")
@@ -65,5 +63,6 @@ if st.button("Cevap Al"):
     elif not text:
         st.warning("Lütfen Sorunun Aranacağı Metni Girin.")
     else:
-        highlighted_text = get_answer(question, text)
+        answer, highlighted_text = get_answer(question, text)
+        st.markdown(f'Cevap: "{answer}"', unsafe_allow_html=True)
         st.markdown(highlighted_text, unsafe_allow_html=True)
