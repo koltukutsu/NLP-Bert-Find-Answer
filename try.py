@@ -1,5 +1,5 @@
 import streamlit as st
-
+from PIL import Image
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 import torch
 
@@ -52,6 +52,8 @@ def get_answer(question, text):
 
     return highlighted_text
 
+logo = Image.open("ytu.png")
+st.image(logo, width=200)
 
 # Define Streamlit app
 st.title("BERT Dil Modeli ile Soru Cevaplandırma")
