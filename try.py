@@ -38,7 +38,7 @@ def get_answer(question, text):
 
     # Highlight answer in text
     highlighted_text = text.replace(
-        "Semih", f"<mark style='background-color: yellow'>Semih</mark>"
+        answer, f"<mark style='background-color: yellow'>{answer}</mark>"
     )
 
     # highlighted_text = text
