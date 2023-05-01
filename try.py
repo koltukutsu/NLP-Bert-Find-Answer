@@ -4,17 +4,18 @@ from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 import torch
 
 
-# Load BERT-QA model
-tokenizer = AutoTokenizer.from_pretrained(
-    "bert-large-uncased-whole-word-masking-finetuned-squad"
-)
-model = AutoModelForQuestionAnswering.from_pretrained(
-    "bert-large-uncased-whole-word-masking-finetuned-squad"
-)
 
 
 # Define function to get answer and highlight it in text
 def get_answer(question, text):
+    # Load BERT-QA model
+    tokenizer = AutoTokenizer.from_pretrained(
+        "bert-large-uncased-whole-word-masking-finetuned-squad"
+    )
+    model = AutoModelForQuestionAnswering.from_pretrained(
+        "bert-large-uncased-whole-word-masking-finetuned-squad"
+    )
+
     # Tokenize inputs
     inputs = tokenizer.encode_plus(
         question, text, add_special_tokens=True, return_tensors="pt"
@@ -41,6 +42,13 @@ def get_answer(question, text):
     )
 
     # highlighted_text = text
+    del model
+    del inputs
+    del tokenizer
+    del input_ids
+    del attention_mask
+    del start_index
+    del end_index
 
     return highlighted_text
 
