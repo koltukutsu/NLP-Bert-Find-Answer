@@ -55,6 +55,10 @@ st.image(logo, width=200)
 
 # Define Streamlit app
 st.title("BERT Dil Modeli ile Soru Cevaplandırma")
+st.subheader("Yıldız Teknik Üniversitesi Bilgisayar Mühendisliği Bölümü Ara Projesi")
+st.subheader("Erdi YAĞCI - Ç18061067")
+st.subheader("Mehmet Semih BABACAN - Ç18069040")
+
 question = st.text_input("Soru")
 text = st.text_area("Sorunun Cevabının Aranacağı Metin")
 
