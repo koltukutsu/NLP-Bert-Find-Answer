@@ -10,10 +10,10 @@ import torch
 def get_answer(question, text):
     # Load BERT-QA model
     tokenizer = AutoTokenizer.from_pretrained(
-        "bert-large-uncased-whole-word-masking-finetuned-squad"
+        "mrm8488/bert-multi-cased-finetuned-xquadv1"
     )
     model = AutoModelForQuestionAnswering.from_pretrained(
-        "bert-large-uncased-whole-word-masking-finetuned-squad"
+        "mrm8488/bert-multi-cased-finetuned-xquadv1"
     )
 
     # Tokenize inputs
@@ -40,7 +40,7 @@ def get_answer(question, text):
     highlighted_text = text.replace(
         answer, f"<mark style='background-color: yellow'>{answer}</mark>"
     )
-
+    print(answer)
     # highlighted_text = text
     del model
     del inputs
