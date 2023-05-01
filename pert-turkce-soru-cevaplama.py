@@ -7,10 +7,11 @@ import torch
 # Define function to get answer and highlight it in text
 def get_answer(question, text):
     # Load BERT-QA model
-    tokenizer = AutoTokenizer.from_pretrained("daddycik/bert-turkce-soru-cevaplama")
-    
+    name_of_repo = "lserinol/bert-turkish-question-answering"
+    tokenizer = AutoTokenizer.from_pretrained(name_of_repo)
+
     model = AutoModelForQuestionAnswering.from_pretrained(
-        "daddycik/bert-turkce-soru-cevaplama"
+        name_of_repo
     )
 
     # Tokenize inputs
@@ -35,7 +36,7 @@ def get_answer(question, text):
 
     # Highlight answer in text
     highlighted_text = text.replace(
-        answer, f"<mark style='background-color: yellow'>{answer}</mark>"
+        answer, f"<mark style='background-color: green'>{answer}</mark>"
     )
     print(answer)
     # highlighted_text = text
