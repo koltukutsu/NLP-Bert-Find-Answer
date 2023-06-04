@@ -61,7 +61,7 @@ st.subheader("Mehmet Semih BABACAN - Ç18069040")
 
 question = st.text_input("Soru")
 text = st.text_area("Sorunun Cevabının Aranacağı Metin")
-st.text_area("(Sorunun aranacığı metin 512 Token'dan uzun olmamalı.)")
+st.text("(Sorunun aranacığı metin 512 Token'dan uzun olmamalı.)")
 if st.button("Cevap Al"):
     if not question:
         st.warning("Lütfen Soruyu Girin.")
