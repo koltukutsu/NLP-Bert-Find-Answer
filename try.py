@@ -59,6 +59,7 @@ st.image(logo, width=200)
 st.title("BERT Dil Modeli ile Soru Cevaplandırma")
 question = st.text_input("Soru")
 text = st.text_area("Sorunun Cevabının Aranacağı Metin")
+st.text_area("Aranacak metin en fazla 512 Token uzunluğunda olabikir.")
 
 if st.button("Cevap Al"):
     if not question:
