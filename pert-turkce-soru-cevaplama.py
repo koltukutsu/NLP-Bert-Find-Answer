@@ -4,7 +4,7 @@ from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 import torch
 
 # Define function to get answer and highlight it in text
-MODEL_NAME = "lserinol/bert-turkish-question-answering"
+MODEL_NAME = "daddycik/bert-turkce-soru-cevaplama"
 model = None
 tokenizer = None
 
