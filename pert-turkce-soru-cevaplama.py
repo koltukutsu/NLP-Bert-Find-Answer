@@ -4,6 +4,18 @@ from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 import torch
 
 # Define function to get answer and highlight it in text
+MODEL_NAME = "daddycik/bert-turkce-soru-cevaplama"
+model = None
+tokenizer = None
+
+def load_model_and_tokenizer(model_name):
+    global model, tokenizer
+    if not model:
+        model = AutoModelForQuestionAnswering.from_pretrained(model_name)
+    if not tokenizer:
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+    return model, tokenizer
+
 def get_answer(question, text, tokenizer, model):
     # Tokenize inputs
     inputs = tokenizer.encode_plus(
@@ -43,9 +55,10 @@ st.subheader("Mehmet Semih BABACAN - Ç18069040")
 
 # Load BERT-QA model outside the function to avoid reloading it each time.
 print("WORKING THE REPOSITORY")
-name_of_repo = "daddycik/bert-turkce-soru-cevaplama"
-tokenizer = AutoTokenizer.from_pretrained(name_of_repo)
-model = AutoModelForQuestionAnswering.from_pretrained(name_of_repo)
+model, tokenizer = load_model_and_tokenizer(MODEL_NAME)
+# name_of_repo = "daddycik/bert-turkce-soru-cevaplama"
+# tokenizer = AutoTokenizer.from_pretrained(name_of_repo)
+# model = AutoModelForQuestionAnswering.from_pretrained(name_of_repo)
 
 question = st.text_input("Soru")
 text = st.text_area("Sorunun Cevabının Aranacağı Metin")
