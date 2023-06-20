@@ -52,9 +52,9 @@ st.text("(Sorunun aranacığı metin 512 Token'dan uzun olmamalı.)")
 
 # Tokenize the text to count the tokens
 tokens = tokenizer.encode(text, truncation=False)
-
-if len(tokens) > 512:
-    st.warning("Sorunun aranacağı metin 512 token size'dan daha uzun. Lütfen metni kısaltın.")
+token_size = len(tokens)
+if token_size > 512:
+    st.warning(f"Sorunun aranacağı metin 512 token size'dan daha uzun. Metnin uzunluğu {token_size} tokendır. Lütfen metni kısaltın.")
 else:
     if st.button("Cevap Al"):
         if not question:
