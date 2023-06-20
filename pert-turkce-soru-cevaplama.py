@@ -42,6 +42,7 @@ st.subheader("Erdi YAĞCI - Ç18061067")
 st.subheader("Mehmet Semih BABACAN - Ç18069040")
 
 # Load BERT-QA model outside the function to avoid reloading it each time.
+print("WORKING THE REPOSITORY")
 name_of_repo = "daddycik/bert-turkce-soru-cevaplama"
 tokenizer = AutoTokenizer.from_pretrained(name_of_repo)
 model = AutoModelForQuestionAnswering.from_pretrained(name_of_repo)
