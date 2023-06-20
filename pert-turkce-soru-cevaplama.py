@@ -3,15 +3,8 @@ from PIL import Image
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 import torch
 
-
 # Define function to get answer and highlight it in text
-def get_answer(question, text):
-    # Load BERT-QA model
-    name_of_repo = "lserinol/bert-turkish-question-answering"
-    tokenizer = AutoTokenizer.from_pretrained(name_of_repo)
-
-    model = AutoModelForQuestionAnswering.from_pretrained(name_of_repo)
-
+def get_answer(question, text, tokenizer, model):
     # Tokenize inputs
     inputs = tokenizer.encode_plus(
         question, text, add_special_tokens=True, return_tensors="pt"
@@ -36,19 +29,8 @@ def get_answer(question, text):
     highlighted_text = text.replace(
         answer, f"<mark style='background-color: #b5e48c'>{answer}</mark>"
     )
-    
-    print(answer)
-    # highlighted_text = text
-    del model
-    del inputs
-    del tokenizer
-    del input_ids
-    del attention_mask
-    del start_index
-    del end_index
 
     return (answer, highlighted_text)
-
 
 logo = Image.open("ytu.png")
 st.image(logo, width=200)
@@ -59,15 +41,27 @@ st.subheader("Yıldız Teknik Üniversitesi Bilgisayar Mühendisliği Bölümü 
 st.subheader("Erdi YAĞCI - Ç18061067")
 st.subheader("Mehmet Semih BABACAN - Ç18069040")
 
+# Load BERT-QA model outside the function to avoid reloading it each time.
+name_of_repo = "daddycik/bert-turkce-soru-cevaplama"
+tokenizer = AutoTokenizer.from_pretrained(name_of_repo)
+model = AutoModelForQuestionAnswering.from_pretrained(name_of_repo)
+
 question = st.text_input("Soru")
 text = st.text_area("Sorunun Cevabının Aranacağı Metin")
 st.text("(Sorunun aranacığı metin 512 Token'dan uzun olmamalı.)")
-if st.button("Cevap Al"):
-    if not question:
-        st.warning("Lütfen Soruyu Girin.")
-    elif not text:
-        st.warning("Lütfen Sorunun Aranacağı Metni Girin.")
-    else:
-        answer, highlighted_text = get_answer(question, text)
-        st.markdown(f'Cevap: "{answer}"', unsafe_allow_html=True)
-        st.markdown(f"Cevap verilen metnin içinde:\n{highlighted_text}", unsafe_allow_html=True)
+
+# Tokenize the text to count the tokens
+tokens = tokenizer.encode(text, truncation=False)
+
+if len(tokens) > 512:
+    st.warning("Sorunun aranacağı metin 512 token size'dan daha uzun. Lütfen metni kısaltın.")
+else:
+    if st.button("Cevap Al"):
+        if not question:
+            st.warning("Lütfen Soruyu Girin.")
+        elif not text:
+            st.warning("Lütfen Sorunun Aranacağı Metni Girin.")
+        else:
+            answer, highlighted_text = get_answer(question, text, tokenizer, model)
+            st.markdown(f'Cevap: "{answer}"', unsafe_allow_html=True)
+            st.markdown(f"Cevap verilen metnin içinde:\n{highlighted_text}", unsafe_allow_html=True)
